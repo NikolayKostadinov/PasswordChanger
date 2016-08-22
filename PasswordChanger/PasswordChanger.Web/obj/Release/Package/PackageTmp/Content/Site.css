@@ -1,0 +1,195 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    background-color: #00174A;
+    text-align: center;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists
+   will truncate terms that are too long to fit in the left column
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+center {
+    display: block;
+    text-align: -webkit-center;
+}
+
+.login_inputs {
+    padding-top: 0px;
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-size: 17px;
+    color: #0099cc;
+    font-weight: bold;
+    text-align: left;
+}
+
+.form-wrapper {
+    background-color: #ffffff;
+    text-align: center;
+    vertical-align: middle;
+    width: 460px;
+    background-image: url(../images/login_bg_centered.png);
+    background-size: 5px 470px;
+    margin: 0px;
+    padding: 30px;
+    border-radius: 6px;
+}
+
+.form-controll-wrapper {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+}
+
+.heading {
+    color: #FFFFFF;
+    font-family: CAlibri,Verdana,Arial,Helvetica,sans-serif;
+    font-weight: bold;
+    font-size: 26px;
+}
+
+.wrapper {
+    display: table-cell;
+    height: 700px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+    .wrapper > div {
+        display: inline-block;
+    }
+
+label {
+    float: left;
+    padding-bottom: 6px;
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-size: 11px;
+    color: #333333;
+    font-weight: bold;
+    text-align: left;
+    vertical-align: middle;
+}
+
+input[name='CaptchaInputText'], input.text-box.single-line {
+    float: right;
+    background-image: none;
+    border-color: #A0A0A0;
+    border-style: solid;
+    border-width: 1px;
+    color: rgb(0, 0, 0);
+    cursor: auto;
+    display: inline-block;
+    font-family: Verdana, Arial, helvetica, sans-serif;
+    font-size: 11px;
+    font-stretch: normal;
+    font-style: normal;
+    font-variant-caps: normal;
+    font-variant-ligatures: normal;
+    font-variant-numeric: normal;
+    font-weight: normal;
+    height: 18px;
+    letter-spacing: normal;
+    line-height: normal;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    padding-bottom: 1px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 1px;
+    text-align: start;
+    text-indent: 0px;
+    text-rendering: auto;
+    text-shadow: none;
+    text-transform: none;
+    width: 283px;
+    word-spacing: 0px;
+    writing-mode: horizontal-tb;
+    -webkit-appearance: none;
+    -webkit-rtl-ordering: logical;
+    -webkit-user-select: text;
+}
+
+div.controlls-wrapper {
+    margin-top: 15px;
+}
+
+    div.controlls-wrapper * {
+        display: inline-block;
+    }
+
+    div.controlls-wrapper img {
+        float: left;
+    }
+
+    div.controlls-wrapper button {
+        float: right;
+        height: 20px;
+        line-height: 20px;
+        padding-top: 0px;
+        margin-top: 10px;
+    }
+
+footer {
+    text-align: right;
+    color: #FFFFFF;
+    font-size: 0.9em;
+}
+
+.input-validation-error, .error {
+    border: 1px solid #b94a48 !important;
+    background-color: #fee !important;
+}
+
+.field-validation-error {
+    color: red;
+}
+
+.tooltip-inner {
+    max-width: 300px;
+    padding: 0;
+}
+
+.tooltip-alert {
+    padding: 8px 10px;
+    font-weight: bolder;
+    color: #A94442;
+}
+
+.alert.alert-success, .alert.alert-danger {
+    position: absolute;
+    width: 1140px;
+    height: 60px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+span.field-validation-error {
+    display: none;
+}
+
+a[href='#CaptchaImage'] {
+    display: block !important;
+}
+
+#CaptchaImage {
+    margin-top: -15px;
+}

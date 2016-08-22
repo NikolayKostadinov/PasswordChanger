@@ -1,0 +1,32 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="PasswordChanger.WebApiService.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="domain" Type="System.String" Scope="User">
+      <Value Profile="(Default)">192.168.7.201</Value>
+    </Setting>
+    <Setting Name="defaultOU" Type="System.String" Scope="User">
+      <Value Profile="(Default)">CN=Test User, OU = Users, OU = CASDM, DC = CASDM, DC = LOCAL</Value>
+    </Setting>
+    <Setting Name="serviceUser" Type="System.String" Scope="User">
+      <Value Profile="(Default)">CASDM\admin1</Value>
+    </Setting>
+    <Setting Name="SelfHostedWebApiPort" Type="System.String" Scope="User">
+      <Value Profile="(Default)">12345</Value>
+    </Setting>
+    <Setting Name="SelfHostedWebApiHost" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://localhost</Value>
+    </Setting>
+    <Setting Name="servicePassword" Type="System.String" Scope="User">
+      <Value Profile="(Default)">cWF6MTIzd3N4</Value>
+    </Setting>
+    <Setting Name="allawedIPs" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;string&gt;10.94.23.238&lt;/string&gt;
+  &lt;string&gt;10.94.23.242&lt;/string&gt;
+  &lt;string&gt;::1&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Ninject.Web.Common.SelfHost</name>
+    </assembly>
+    <members>
+        <member name="T:Ninject.Web.Common.SelfHost.INinjectSelfHost">
+            <summary>
+            A self host for web common.
+            </summary>
+        </member>
+        <member name="M:Ninject.Web.Common.SelfHost.INinjectSelfHost.Start">
+            <summary>
+            Starts this self host.
+            </summary>
+        </member>
+        <member name="T:Ninject.Web.Common.SelfHost.NinjectSelfHostBootstrapper">
+            <summary>
+            Self hosting bootstrapper
+            </summary>
+        </member>
+        <member name="F:Ninject.Web.Common.SelfHost.NinjectSelfHostBootstrapper.bootstrapper">
+            <summary>
+            The web common default bootstrapper
+            </summary>
+        </member>
+        <member name="M:Ninject.Web.Common.SelfHost.NinjectSelfHostBootstrapper.#ctor(System.Func{Ninject.IKernel},System.Object[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:Ninject.Web.Common.SelfHost.NinjectSelfHostBootstrapper"/> class.
+            </summary>
+            <param name="createKernelCallback">The create kernel callback.</param>
+            <param name="selfHostConfigurations">The self host configurations.</param>
+        </member>
+        <member name="M:Ninject.Web.Common.SelfHost.NinjectSelfHostBootstrapper.Start">
+            <summary>
+            Starts this instance.
+            </summary>
+        </member>
+        <member name="M:Ninject.Web.Common.SelfHost.NinjectSelfHostBootstrapper.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+    </members>
+</doc>
