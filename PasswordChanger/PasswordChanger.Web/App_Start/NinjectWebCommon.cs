@@ -70,6 +70,7 @@ namespace PasswordChanger.Web.AppStart
             kernel.Bind<ISettingsProvider>().To<SettingsProvider>().WithConstructorArgument("settingsTypeParam", "userSettings");
             kernel.Bind<IOperationStatus>().To<OperationStatus>();
             kernel.Bind<IChangePasswordService>().To<ChangePasswordService>();
+            kernel.Bind<IMailerService>().To<MailerService>();
         }
     }
 }

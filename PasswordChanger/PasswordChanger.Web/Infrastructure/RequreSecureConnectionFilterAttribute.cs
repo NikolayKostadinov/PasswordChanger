@@ -25,19 +25,19 @@ namespace PasswordChanger.Web.Infrastructure
         {
             this.logger = loggerParam;
         }
-        public override void OnAuthorization(AuthorizationContext filterContext)
-        {
-            if (!filterContext.HttpContext.Request.IsLocal)
-            {
+        //public override void OnAuthorization(AuthorizationContext filterContext)
+        //{
+        //    //if (!filterContext.HttpContext.Request.IsLocal)
+        //    //{
 
-                if (!filterContext.HttpContext.Request.IsSecureConnection)
-                {
-                    int port = filterContext.HttpContext.Request.Url.Port;
-                    filterContext.HttpContext.Response.RedirectPermanent(filterContext.HttpContext.Request.Url.ToString().Replace("http://", "https://").Replace($":{port.ToString()}", ":443"));
-                }
-            }
+        //    //    if (!filterContext.HttpContext.Request.IsSecureConnection)
+        //    //    {
+        //    //        int port = filterContext.HttpContext.Request.Url.Port;
+        //    //        filterContext.HttpContext.Response.RedirectPermanent(filterContext.HttpContext.Request.Url.ToString().Replace("http://", "https://").Replace($":{port.ToString()}", ":443"));
+        //    //    }
+        //    //}
 
-            base.OnAuthorization(filterContext);
-        }
+        //    base.OnAuthorization(filterContext);
+        //}
     }
 }

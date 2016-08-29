@@ -9,12 +9,14 @@ namespace PasswordChanger.Application.Services
 {
     using Common;
     using Contracts;
+    using log4net;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Net;
     using System.Net.Http;
     using System.Net.Http.Headers;
+    using System.Text;
 
     /// <summary>
     /// Summary description for $classname$
@@ -22,13 +24,15 @@ namespace PasswordChanger.Application.Services
     public class ChangePasswordService : IChangePasswordService
     {
         private readonly string hostAddress;
-        public readonly string hostPort;
+        private readonly string hostPort;
+        private readonly ILog logger;
 
-        public ChangePasswordService(ISettingsProvider settingsProvider)
+        public ChangePasswordService(ISettingsProvider settingsProvider, ILog loggerParam)
         {
             var settings = settingsProvider.GetSettings();
             this.hostAddress = settings["hostAddress"] as string;
             this.hostPort = settings["hostPort"] as string;
+            this.logger = loggerParam;
         }
 
         public IOperationStatus ChangePassword(IUsersDataDto user)
@@ -60,10 +64,48 @@ namespace PasswordChanger.Application.Services
                     return result.SetErrors(new List<ValidationResult>() { new ValidationResult(returnValue) });
                 }
             }
+            catch (System.AggregateException ex)
+            {
+                StringBuilder message = new StringBuilder();
+                GetErrorMessage(ex, message);
+                logger.Error($"{ message.ToString()}\n{ex.StackTrace}");
+                return result.SetErrors(new List<ValidationResult>() { new ValidationResult("There was a problem during password changing process!!!\n Please contact service desk.") });
+            }
             catch (Exception ex)
             {
+                logger.Error($"{ex.Message}\n{ex.StackTrace}", ex);
                 return result.SetErrors(new List<ValidationResult>() { new ValidationResult("There was a problem during password changing process!!!\n Please contact service desk.") });
-                throw ex;
+            }
+        }
+
+        private void GetErrorMessage(AggregateException ex, StringBuilder message)
+        {
+            foreach (var error in ex.InnerExceptions)
+            {
+                message.AppendLine(ex.Message);
+                if (ex.InnerException != null)
+                {
+                    message.AppendLine($"\t\t\t\t\t\t\t{ex.Message}");
+                    GetSubErrorMessage(ex.InnerException, message);
+                }
+                else
+                {
+                    return;
+                }
+            }
+
+        }
+
+        private void GetSubErrorMessage(Exception ex, StringBuilder message)
+        {
+            message.AppendLine($"\t\t\t\t\t\t\t{ex.Message}");
+            if (ex.InnerException != null)
+            {
+                GetSubErrorMessage(ex.InnerException, message);
+            }
+            else
+            {
+                return;
             }
         }
     }

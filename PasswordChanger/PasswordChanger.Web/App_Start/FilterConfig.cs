@@ -11,7 +11,7 @@ namespace PasswordChanger.Web
         {
             var logger = DependencyResolver.Current.GetService<ILog>();
             filters.Add(new GlobalErrorFilterAttribute(logger));
-            filters.Add(new RequreSecureConnectionFilterAttribute(logger));
+            //filters.Add(new RequreSecureConnectionFilterAttribute(logger));
         }
     }
 }

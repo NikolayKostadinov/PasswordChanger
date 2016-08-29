@@ -36,12 +36,19 @@ namespace PasswordChanger.Web.Infrastructure
             {
                 details.Add(string.Format("{0} = {1}", key, parameters[key]));
             }
-            this.logger.Error($"{filterContext.Exception.Message}\n{filterContext.Exception.StackTrace}\nDetails{String.Join("\n",details)}");
+            this.logger.Error($"{filterContext.Exception.Message}\n{filterContext.Exception.StackTrace}\nDetails{String.Join("\n", details)}");
 
             filterContext.ExceptionHandled = true;
 
             var tempdata = new TempDataDictionary();
-            filterContext.Controller.TempData.Add("ErrorMessage", $"There was a problem during password changing process!!!\n Please contact service desk.\n{filterContext.Exception.Message}\n{filterContext.Exception.StackTrace}");
+            if (filterContext.Controller.TempData.ContainsKey("ErrorMessage"))
+            {
+                filterContext.Controller.TempData["ErrorMessage"] = $"There was a problem during password changing process!!!\n Please contact service desk.\n{filterContext.Exception.Message}\n{filterContext.Exception.StackTrace}";
+            }
+            else
+            {
+                filterContext.Controller.TempData.Add("ErrorMessage", $"There was a problem during password changing process!!!\n Please contact service desk.\n{filterContext.Exception.Message}\n{filterContext.Exception.StackTrace}");
+            }
 
             filterContext.Result = new ViewResult
             {

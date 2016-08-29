@@ -1,6 +1,7 @@
 ﻿using log4net;
 using PasswordChanger.Application.Contracts;
 using PasswordChanger.Application.Dto;
+using PasswordChanger.Web.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,18 +14,22 @@ namespace PasswordChanger.Web.Controllers
     {
         private readonly IChangePasswordService service;
         private readonly ILog logger;
+        private readonly IMailerService mailerService;
 
-        public HomeController(IChangePasswordService serviceParam, ILog loggerParam)
+        public HomeController(IChangePasswordService serviceParam, ILog loggerParam, IMailerService mailerServiceParam)
         {
             this.logger = loggerParam;
             this.service = serviceParam;
+            this.mailerService = mailerServiceParam;
         }
 
+        [RequireHttps]
         public ActionResult Index()
         {
             return View();
         }
 
+        [RequireHttps]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Index(UsersDataDto user)
@@ -35,7 +40,9 @@ namespace PasswordChanger.Web.Controllers
                 if (result.IsValid)
                 {
                     TempData["SuccessMessage"] = String.Join("<br/>", result.SuccessMessages);
-                    this.logger.Info($"{user.UserName} - Password was changed successfully (OldPasswordLength) [{user.CurrentPassword.Length}] to (NewPasswordLength) [{user.NewPassword.Length}]");
+                    string message = $"{user.UserName} - Password was changed successfully (OldPasswordLength) [{user.CurrentPassword.Length}] to (NewPasswordLength) [{user.NewPassword.Length}]";
+                    this.logger.Info(message);
+                    this.mailerService.SendMail(message, "Password changed successfully");
                     return RedirectToAction(nameof(Index));
                 }
                 else
@@ -47,16 +54,27 @@ namespace PasswordChanger.Web.Controllers
                             this.TempData["ErrorMessage"] = error.ErrorMessage;
                         }
 
-                        this.ModelState.AddModelError(error.MemberNames.FirstOrDefault(),error.ErrorMessage);
+                        this.ModelState.AddModelError(string.Empty, error.ErrorMessage);
 
                         string memberName = (!string.IsNullOrEmpty(error.MemberNames.FirstOrDefault() ?? string.Empty)) ? $"FieldName: {error.MemberNames.FirstOrDefault()}; Error: " : string.Empty;
-                        logger.Error($"{user.UserName} - {memberName}{error.ErrorMessage}");
+                        string message = $"{user.UserName} - {memberName}{error.ErrorMessage}";
+                        logger.Error(message);
+                        this.mailerService.SendMail(message, "Password change failed");
+
                     }
                 }
             }
 
             return View(user);
 
+        }
+
+
+        [HttpGet]
+        [RequireHttp]
+        public ActionResult RedirectToLogin()
+        {
+            return Redirect("http://sdm.bmsys.eu/CAisd/pdmweb.exe");
         }
     }
 }

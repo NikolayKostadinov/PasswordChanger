@@ -29,7 +29,7 @@
                     <div class="form-controll-wrapper clearfix">
                         @Html.LabelFor(m => m.UserName)
                         @Html.EditorFor(m => m.UserName)
-                        @Html.ValidationMessageFor(m=>m.UserName)
+                        @Html.ValidationMessageFor(m => m.UserName)
                     </div>
                     <div class="form-controll-wrapper clearfix">
                         @Html.LabelFor(m => m.CurrentPassword)
@@ -42,11 +42,15 @@
                         @Html.ValidationMessageFor(m => m.NewPassword)
                     </div>
                     <div class="form-controll-wrapper clearfix">
-                        @Html.MathCaptcha("Try another", "Enter the result you see above:", "Is required field", true)
+                        @Html.MathCaptcha("Try another", string.Empty, "Is required field", true)
+                        <label for="CaptchaInputText" class="col-xs-4" style="margin-left: -15px; margin-top: -45px;">Enter the result you see above:</label>
                     </div>
                     <div class="controlls-wrapper clearfix">
                         <img src="~/images/bms_logo.png">
+                        @Html.ActionLink("Back to SDM","RedirectToLogin",null, new { @class = "btn btn-default" } )
+                        @*<a href="http://sdm.bmsys.eu/" class="btn btn-default">Back to SDM</a>*@
                         <button type="submit" class="btn btn-primary">Submit</button>
+
                     </div>
                 }
             </div>
