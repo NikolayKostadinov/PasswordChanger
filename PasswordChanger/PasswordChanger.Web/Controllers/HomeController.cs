@@ -71,7 +71,6 @@ namespace PasswordChanger.Web.Controllers
 
 
         [HttpGet]
-        [RequireHttp]
         public ActionResult RedirectToLogin()
         {
             return Redirect("http://sdm.bmsys.eu/CAisd/pdmweb.exe");
