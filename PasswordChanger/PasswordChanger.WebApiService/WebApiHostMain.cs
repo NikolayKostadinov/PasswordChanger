@@ -3,6 +3,7 @@
 namespace PasswordChanger.WebApiService
 {
     using System;
+    using System.Data;
     using System.Net.Http;
     using System.ServiceProcess;
     using System.Web.Http;
@@ -76,7 +77,7 @@ namespace PasswordChanger.WebApiService
                     StartRequest();
                     logger.Info("WebApi SelfHosted thread is started!");
                     while (!StopWebApiServer) { }
-                    logger.Info("SelfHosted WebApi service is stopped!");
+                    //logger.Info("SelfHosted WebApi service is stopped!");
                 }
             }
             catch (Exception ex)
@@ -95,7 +96,7 @@ namespace PasswordChanger.WebApiService
             return kernel;
         }
 
-        private static void StartRequest()
+        public static void StartRequest()
         {
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -116,6 +117,35 @@ namespace PasswordChanger.WebApiService
             catch (Exception ex)
             {
                 logger.Error(string.Format("{0}\n{1}", ex.Message, ex.StackTrace));
+            }
+        }
+
+        public static  NinjectSelfHostBootstrapper Start()
+        {
+            try
+            {
+                string uri = string.Format("{0}:{1}",
+                    Properties.Settings.Default.SelfHostedWebApiHost,
+                    Properties.Settings.Default.SelfHostedWebApiPort);
+                Uri baseAddress = new Uri(uri);
+                var config = new HttpSelfHostConfiguration(baseAddress);
+
+                config.Routes.MapHttpRoute(
+                    name: "DefaultApi",
+                    routeTemplate: "api/{controller}/{action}/{id}",
+                    defaults: new {id = RouteParameter.Optional}
+                );
+                config.Filters.Add(new HandleErrorAttribute(logger));
+                config.Filters.Add(new AllawIpToConnectAttribute(logger));
+                config.Filters.Add(new ValidateModelAttribute());
+                config.MessageHandlers.Add(new LogRequestAndResponseHandler(LogManager.GetLogger("WebApiTrace")));
+
+                return new NinjectSelfHostBootstrapper(CreateKernel, config);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message, ex);
+                throw new ApplicationException();
             }
         }
     }

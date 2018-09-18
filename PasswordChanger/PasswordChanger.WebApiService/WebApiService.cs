@@ -12,9 +12,12 @@ using System.Threading.Tasks;
 
 namespace PasswordChanger.WebApiService
 {
+    using Ninject.Web.Common.SelfHost;
+
     public partial class WebApiService : ServiceBase
     {
         private readonly ILog logger;
+        private NinjectSelfHostBootstrapper selfHost;
 
         public WebApiService(ILog loggerParam)
         {
@@ -24,8 +27,12 @@ namespace PasswordChanger.WebApiService
 
         protected override void OnStart(string[] args)
         {
-            Thread t = new Thread(new ThreadStart(WebApiHostMain.App_Start));
-            t.Start();
+            //Thread t = new Thread(new ThreadStart(WebApiHostMain.App_Start));
+            //t.Start();
+            this.selfHost = WebApiHostMain.Start();
+            selfHost.Start();
+            WebApiHostMain.StartRequest();
+            logger.Info("WebApi SelfHosted thread is started!");
             logger.Info("WebApi Service started");
             WebApiHostMain.StopWebApiServer = false;
         }
@@ -34,6 +41,7 @@ namespace PasswordChanger.WebApiService
         {
             // TODO: Add code here to perform any tear-down necessary to stop your service.
             // JUST test
+            this.selfHost.Dispose();
             WebApiHostMain.StopWebApiServer = true;
             logger.Info("WebApi Service stopped");
         }
