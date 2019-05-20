@@ -192,3 +192,5 @@ ModelManifest.xml
 /Source/CollectingProductionDataSystem.Logs/application_logs
 applicationhost.config
 /Source/.vs
+/PasswordChanger/PasswordChanger.WebApiService/obj
+obj
